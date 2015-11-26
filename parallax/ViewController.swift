@@ -37,7 +37,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 		//original height of the photo
 		photoHeight = CGFloat(photoContainer.center.y)
 		
-		
+		print(photoHeight)
 
 	
 	}
@@ -48,17 +48,35 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 	}
 	
 	func scrollViewDidScroll(scrollView: UIScrollView) {
+
+//		ORIGINAL VERSION
 		
-		let parallax: CGFloat! = 0.25
+//		let parallax: CGFloat! = 0.25
+//
+//		//calculate the offset
+//		offset = CGFloat(scrollView.contentOffset.y)
+//		print("offset: \(scrollView.contentOffset.y)")
+//		
+//		//move the photo container
+//		photoContainer.center.y = CGFloat(photoHeight + (offset * parallax))
+//		print("photo: \(photoContainer.center.y)")
 		
+// NEW VERSION 1
+
 		//calculate the offset
 		offset = CGFloat(scrollView.contentOffset.y)
 		print("offset: \(scrollView.contentOffset.y)")
+
+		// scroll up - parallax effect
+		if offset >= 0 {
+			photoContainer.center.y = CGFloat(photoHeight + (offset * 0.25))
+		}
+		// pull down - lock to top / scale effect
+		else {
+			photoContainer.center.y = CGFloat (photoHeight + offset)
+		}
+
 		
-		//move the photo container
-		photoContainer.center.y = CGFloat(photoHeight + (offset * parallax))
-		print("photo: \(photoContainer.center.y)")
-	
 	}
 	
 
