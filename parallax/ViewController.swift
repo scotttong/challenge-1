@@ -26,10 +26,10 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 		// Do any additional setup after loading the view, typically from a nib.
 		
 		//size of the frame of the scrollview
-		scrollView.frame.size = CGSize(width:view.frame.width, height:view.frame.height)
+		scrollView.frame.size = CGSize(width:view.frame.width, height:view.frame.height-64)
 
 		//size of the content
-		scrollView.contentSize = CGSize(width: view.frame.width, height: contentView.frame.height + photoView.frame.height + 64)
+		scrollView.contentSize = CGSize(width: view.frame.width, height: contentView.frame.height + photoView.frame.height)
 		
 		//add scrollView delegate
 		scrollView.delegate = self
@@ -38,6 +38,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 		photoHeight = CGFloat(photoContainer.center.y)
 		
 		print(photoHeight)
+		print(contentView.center.y)
 
 	
 	}
@@ -65,7 +66,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 
 		//calculate the offset
 		offset = CGFloat(scrollView.contentOffset.y)
-		print("offset: \(scrollView.contentOffset.y)")
+//		print("offset: \(scrollView.contentOffset.y)")
 
 		// scroll up - parallax effect
 		if offset >= 0 {
@@ -74,12 +75,13 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 		// pull down - lock to top / scale effect
 		else {
 			photoContainer.center.y = CGFloat (photoHeight + offset)
+			photoView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1 - offset * 0.0125, 1 - offset * 0.0125)
+			
 		}
-
+		
 		
 	}
 	
-
-
+	
 }
 
